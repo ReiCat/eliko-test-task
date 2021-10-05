@@ -103,7 +103,7 @@ async def insert_packets(pool, rrl_packet: str, coord_packet: str):
             )
 
 async def process_devices(pool, devices: dict):
-    points_in_circle = 0
+    total_points_in_circle = 0
     for device_id, device_data in devices.items():
         async with pool.acquire() as connection:
             async with connection.transaction():
@@ -120,7 +120,7 @@ async def process_devices(pool, devices: dict):
             
             # Count the positions inside the circle with center (30,50) and radius 5m. 
             if dcp['x'] >= 25 and dcp['x'] <= 35 and dcp['y'] >= 45 and dcp['y'] <= 55:
-                points_in_circle += 1
+                device_data['points_in_circle'] += 1
 
             moved, moved_x, moved_y, moved_z = False, 0.0, 0.0, 0.0
             if dcp['x'] != coord['x']:
@@ -135,7 +135,8 @@ async def process_devices(pool, devices: dict):
             if moved:
                 dcp['x'], dcp['y'], dcp['z'] = coord['x'], coord['y'],  coord['z']
                 device_data['distance_moved'] += math.sqrt(moved_x**2 + moved_y**2 + moved_z**2)
-    return devices, points_in_circle
+        total_points_in_circle += device_data['points_in_circle']
+    return devices, total_points_in_circle
 
 async def calculate_data(pool):
     async with pool.acquire() as connection:
@@ -149,6 +150,7 @@ async def calculate_data(pool):
     for rrl in rrl_packets:
         devices[rrl['device_id']] = {
             'distance_moved': 0.0,
+            'points_in_circle': 0,
             'current_position': {
                 'x': 0.00,
                 'y': 0.00,
@@ -156,11 +158,11 @@ async def calculate_data(pool):
             }
         }
 
-    devices, points_in_circle = await process_devices(pool, devices)
+    devices, total_points_in_circle = await process_devices(pool, devices)
     for k, v in devices.items():
-        print(f"DeviceID: {k}, Distance moved: {v['distance_moved']}")
+        print(f"DeviceID: {k}, Distance moved: {v['distance_moved']}, Points in the circle: {v['points_in_circle']}")
     
-    print(f"Total points in circle: {points_in_circle}")
+    print(f"Total points in circle: {total_points_in_circle}")
 
 class Parser:
     file_path = None
