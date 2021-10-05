@@ -17,7 +17,7 @@
 
 3. Activate it
 
-`$ source venv/bin/python activate`
+`$ source venv/bin/activate`
 
 4. Create .env file and add database dsn 
 
