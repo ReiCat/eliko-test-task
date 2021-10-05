@@ -15,14 +15,18 @@
 
 `$ virtualenv -p python3 venv`
 
-3. Create .env file and add database dsn 
+3. Activate it
+
+`$ source venv/bin/python activate`
+
+4. Create .env file and add database dsn 
 
 `$ touch .env && echo "DATABASE_URL=postgresql://eliko:eliko@localhost:5432/eliko" >> .env`
 
-4. Run migrations 
+5. Run migrations 
 
 `$ make migrate-up`
 
-5. Run the script
+6. Run the script
 
 `$ make run path=data/example_data.txt`
