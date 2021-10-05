@@ -148,6 +148,12 @@ async def calculate_data(pool):
 
     devices = {}
     for rrl in rrl_packets:
+        for i in rrl['moving'].split(','):
+            lsb = int(i, 16)
+            #  If the least significant bit in the moving indication field is 1, then
+            # consider the tag not moving, otherwise it is moving. 
+            if lsb & -lsb > 0:
+                continue
         devices[rrl['device_id']] = {
             'distance_moved': 0.0,
             'points_in_circle': 0,
