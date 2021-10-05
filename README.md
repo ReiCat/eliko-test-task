@@ -19,10 +19,10 @@
 
 `$ touch .env && echo "DATABASE_URL=postgresql://eliko:eliko@localhost:5432/eliko" >> .env`
 
-3. Run migrations 
+4. Run migrations 
 
 `$ make migrate-up`
 
-4. Run the script
+5. Run the script
 
 `$ make run path=data/example_data.txt`
