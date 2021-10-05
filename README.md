@@ -2,10 +2,10 @@
 
 1. Create database & user with password
 
-sudo -u postgres psql
-postgres=# create database eliko;
-postgres=# create user eliko with encrypted password 'eliko';
-postgres=# grant all privileges on database eliko to eliko;
+`$ sudo -u postgres psql`
+`postgres=# create database eliko;`
+`postgres=# create user eliko with encrypted password 'eliko';`
+`postgres=# grant all privileges on database eliko to eliko;`
 
 2. Create virtual environment for the project
 * It is assumed you have virtualenv installed globally
