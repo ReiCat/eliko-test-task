@@ -10,16 +10,12 @@ postgres=# grant all privileges on database eliko to eliko;
 2. Create virtual environment for the project
 * It is assumed you have virtualenv installed globally
 
-$ virtualenv -p python3 venv
+`$ virtualenv -p python3 venv`
 
 3. Run migrations 
 
-$ make migrate-up
+`$ make migrate-up`
 
-4. Run tests to ensure everything works as expected
+4. Run the script
 
-$ make test
-
-5. Run the script
-
-$ make run
+`$ make run path=data/example_data.txt`

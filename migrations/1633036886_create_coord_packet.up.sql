@@ -1,5 +1,5 @@
 CREATE TABLE coord (
-    id INT NOT NULL,
+    id SERIAL PRIMARY KEY,
     marker_id SMALLINT NOT NULL,
     packet_type_id SMALLINT NOT NULL,
     device_sequence_number INT NOT NULL,
