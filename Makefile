@@ -17,4 +17,4 @@ migrate-up:
 	@migrate up --url $(DATABASE_URL) --path migrations
 
 migrate-down: 
-	migrate down 1 --url $(DATABASE_URL) --path migrations
+	@migrate down 1 --url $(DATABASE_URL) --path migrations
